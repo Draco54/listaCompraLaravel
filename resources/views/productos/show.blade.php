@@ -10,9 +10,35 @@
     </div>
     <div class="col-sm-8">
 
-    <p>  {{$arrayProductos[0]}}</p>
-        {{$arrayProductos[1]}}</p>
+    <p>  {{$arrayProductos->nombre}}</p>
+        {{$arrayProductos->categoria}}</p>
 
+        <p><strong>Estado: </strong>
+            @if($arrayProductos->pendiente)
+                Producto no disponible
+                @php
+                $class = "btn btn-danger";
+                $texto = "Devolver";
+                @endphp
+            @else
+                Producto disponible
+                @php
+                    $class = "btn btn-success";
+                    $texto = "Adquirir";
+                @endphp
+            @endif
+        </p>
+        <form action="{{ url('productos/cambiarPendiente/' . $arrayProductos->id) }}" method="POST">
+            {{ method_field('PUT') }}
+            @csrf
+            <input type="submit"  class="{{$class}}" value="{{$texto}}" />
+        </form>
+
+
+        <a class="btn btn-warning" href="{{ url('/productos/edit/' . $arrayProductos->id ) }}">
+            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+            Editar Producto</a>
+        <a class="btn btn-outline-info" href="{{ action('ProductoController@getIndex') }}">Volver al listado</a>
     </div>
 </div>
 

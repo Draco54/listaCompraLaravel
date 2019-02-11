@@ -24,5 +24,7 @@ Route::group(['prefix' => 'productos'], function(){
 
     Route::get('edit/{id}', 'ProductoController@getEdit');
 
+    Route::put('changeRented/{id}', 'ProductoController@cambiarPendiente');
+
 });
 

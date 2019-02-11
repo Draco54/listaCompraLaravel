@@ -11,13 +11,15 @@ class ProductoController extends Controller
 
 public function getIndex()
 {
-        return view('productos.index' , array("arrayProductos"=> $this->arrayProductos));
+        
+        $arrayProductos = Producto::all();
+        return view('productos.index', array('arrayProductos'=> $arrayProductos));
 }
 
 public function getShow($id)
 {
-   
-    return view('productos.show', array( "arrayProductos"=> $this->arrayProductos[$id]));
+    $arrayProductos = Producto::findOrFail($id);
+    return view('productos.show', array( 'arrayProductos' => $arrayProductos));
 }
 
 public function getCreate()
@@ -28,7 +30,18 @@ public function getCreate()
 public function getEdit($id)
 {
     return view('productos.edit', array('id'=>$id));
+    
 }
+
+public function cambiarPendiente($id)
+{
+        $productos = Producto::findOrFail($id);
+        $productos->pendiente = !$productos->pendiente;
+        $productos->save();
+        return back();
+   
+}
+
 private $arrayProductos = array(
     array('Aceite','Aceites y grasas'),
     array('Aceite de oliva','Aceites y grasas'),
