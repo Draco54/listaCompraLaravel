@@ -25,8 +25,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('create', 'ProductoController@postCreate');
         Route::put('edit/{id}', 'ProductoController@putEdit');
 
-        Route::put('changeRented/{id}', 'ProductoController@cambiarPendiente');
-
+        Route::put('changeRented/{id}', 'ProductoController@changeRented');
     });
 });
 Auth::routes();

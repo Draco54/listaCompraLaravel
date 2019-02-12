@@ -28,7 +28,7 @@
                 @endphp
             @endif
         </p>
-        <form action="{{ url('productos/cambiarPendiente/' . $arrayProductos->id) }}" method="POST">
+        <form action="{{ url('productos/changeRented/' . $arrayProductos->id) }}" method="POST">
             {{ method_field('PUT') }}
             @csrf
             <input type="submit"  class="{{$class}}" value="{{$texto}}" />

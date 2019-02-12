@@ -56,14 +56,14 @@ public function putEdit(Request $request, $id)
     $p->save();
     return redirect('/productos/show/' . $p->id);
 }
-public function cambiarPendiente($id)
+public function changeRented($id)
 {
-        $productos = Producto::findOrFail($id);
-        $productos->pendiente = !$productos->pendiente;
-        $productos->save();
-        return back();
-   
+    $p = Producto::findOrFail($id);
+    $p->pendiente = !$p->pendiente;
+    $p->save();
+    return back();
 }
+
 
 private $arrayProductos = array(
     array('Aceite','Aceites y grasas'),
