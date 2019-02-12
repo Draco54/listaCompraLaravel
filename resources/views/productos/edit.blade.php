@@ -11,21 +11,21 @@ Editar producto
                 </div>
                 <div class="card-body" style="padding:30px">
 
-                    <form action="{{ url('foo/bar') }}" method="POST">
+                    <form action="{{ url('productos/edit/' . $productos->id) }}" method="POST">
                         {{method_field('PUT')}}
                         @csrf
 
                         <div class="form-group">
                             <label for="title">Nombre</label>
-                            <input type="text" name="nombre" id="nombre" class="form-control">
+                            <input type="text" name="nombre" value="{{ $productos->nombre }}" id="nombre" class="form-control">
                         </div>
 
                         <div class="form-group">
-                            <input type="number"  name="precio" placeholder="Precio">
+                            <input type="number"  name="precio" value="{{ $productos->precio }}" placeholder="Precio">
                         </div>
 
                         <div class="form-group">
-                            <input type="text" name="categoria" placeholder="Categoria">
+                            <input type="text" name="categoria" value="{{ $productos->categoria }}" placeholder="Categoria">
                         </div>
 
                         <div class="form-group">

@@ -27,12 +27,35 @@ public function getCreate()
     return view('productos.create');
 }
 
+public function postCreate(Request $request)
+    {
+        $p= new Producto();
+       
+        $p->nombre = $request->nombre;
+        $p->precio = $request->precio;
+
+        $p->categoria = $request->categoria;
+        $p->save();
+        return redirect('/productos');
+    }    
 public function getEdit($id)
 {
-    return view('productos.edit', array('id'=>$id));
+    $p = Producto::findOrFail($id);
+    return view('productos.edit', array(
+        'productos' => $p
+    ));
     
 }
 
+public function putEdit(Request $request, $id)
+{
+    $p = Producto::findOrFail($id);
+    $p->nombre = $request->nombre;
+    $p->precio = $request->precio;
+    $p->categoria = $request->categoria;
+    $p->save();
+    return redirect('/productos/show/' . $p->id);
+}
 public function cambiarPendiente($id)
 {
         $productos = Producto::findOrFail($id);
