@@ -18,8 +18,9 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/', 'HomeController@index');
     
     Route::group(['prefix' => 'productos'], function(){
-        Route::get('/', 'ProductoController@getIndex');
+        Route::get('/{categoria?}', 'ProductoController@getIndex');
         Route::get('show/{id}', 'ProductoController@getShow');
+       
         Route::get('create', 'ProductoController@getCreate');
         Route::get('edit/{id}', 'ProductoController@getEdit');
         Route::post('create', 'ProductoController@postCreate');

@@ -9,13 +9,30 @@ class ProductoController extends Controller
    
 
 
-public function getIndex()
-{
-        
-        $arrayProductos = Producto::all();
-        return view('productos.index', array('arrayProductos'=> $arrayProductos));
-}
+    public function getIndex($categoria=null)
+    {
+            if(!$categoria){
+                $arrayProductos = Producto::all();
+                return view('productos.index', array('arrayProductos'=> $arrayProductos));  
+            }else if($categoria=='create'){
+                return view('productos.create');
+                
+                
+            }else if($categoria=='categorias'){
+                $arrayProductos = Producto::select('categoria')->groupBy('categoria')->get();
+                $array = Producto::all();
+                return view('productos.listaCategoria',array( 'arrayProductos' => $arrayProductos,'array' => $array));
+               
+            }else{
+                $arrayProductos = Producto::select('nombre','id')->where('categoria',$categoria)->get();
+                
+            return view('productos.categoria', array( 'arrayProductos' => $arrayProductos));
+            }     
+           
+            
+    }
 
+   
 public function getShow($id)
 {
     $arrayProductos = Producto::findOrFail($id);
