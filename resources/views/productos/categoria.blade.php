@@ -6,7 +6,8 @@
     @php
 
     @endphp
-       @foreach( $arrayProductos as $producto )
+    @foreach($arrayIntermedia as $intermedia)
+       
 
            @php
              
@@ -18,11 +19,13 @@
                 <h4 style="min-height:45px;margin:5px 0 10px 0">
 
                    {{$producto->nombre}}
+                  
                    
                </h4>
            </a>
    
        </div>
+
        @endforeach
    
    </div>

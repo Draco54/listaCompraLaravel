@@ -19,10 +19,10 @@ class CreateProductosTable extends Migration
             $table->decimal('precio',8,2)->nullable();
             $table->string('categoria', 64);
             $table->string('imagen')->nullable();
-            $table->boolean('pendiente')->default(false);
             $table->text('descripcion')->nullable();;
             $table->timestamps();
         });
+
     }
 
     /**

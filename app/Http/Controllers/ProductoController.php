@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 use App\Producto;
+use App\Productouser;
 use Illuminate\Http\Request;
+use DB;
+use Auth;
 
 class ProductoController extends Controller
 {
@@ -15,8 +18,8 @@ public function getIndex($categoria=null)
                 $arrayProductos = Producto::all();
                 return view('productos.index', array('arrayProductos'=> $arrayProductos));  
             }else{
-                $arrayProductos = Producto::select('nombre','id')->where('categoria',$categoria)->get();
-                return view('productos.categoria', array( 'arrayProductos' => $arrayProductos));
+                $arrayIntermedia = DB::table('productouser')->select('producto_id')->get();
+                return view('productos.categoria', array( 'arrayProductos' => $arrayProductos,'arrayIntermedia'=>$arrayIntermedia));
             }      
     }
 
@@ -30,7 +33,9 @@ public function getCategorias()
 public function getShow($id)
 {
     $arrayProductos = Producto::findOrFail($id);
-    return view('productos.show', array( 'arrayProductos' => $arrayProductos));
+    $arrayIntermedia = DB::table('productouser')->get();
+    $userId = Auth::id();
+    return view('productos.show', array( 'arrayProductos' => $arrayProductos,'arrayIntermedia' => $arrayIntermedia,'userId'=>$userId));
 }
 
 public function getCreate()
@@ -52,9 +57,8 @@ public function postCreate(Request $request)
 public function getEdit($id)
 {
     $p = Producto::findOrFail($id);
-    return view('productos.edit', array(
-        'productos' => $p
-    ));
+
+    return view('productos.edit', array('productos' => $p));
     
 }
 
@@ -69,6 +73,7 @@ public function putEdit(Request $request, $id)
 }
 public function changeRented($id)
 {
+
     $p = Producto::findOrFail($id);
     $p->pendiente = !$p->pendiente;
     $p->save();

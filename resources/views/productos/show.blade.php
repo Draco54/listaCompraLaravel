@@ -12,9 +12,9 @@
 
     <p>  {{$arrayProductos->nombre}}</p>
         {{$arrayProductos->categoria}}</p>
-
+        {{$userId}}
         <p><strong>Estado: </strong>
-            @if($arrayProductos->pendiente)
+            @if($arrayIntermedia->pendiente)
                 Producto no disponible
                 @php
                 $class = "btn btn-danger";
