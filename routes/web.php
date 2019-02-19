@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('create', 'ProductoController@postCreate');
         Route::put('edit/{id}', 'ProductoController@putEdit');
         Route::get('categorias', 'ProductoController@getCategorias');
-        Route::put('changeRented/{id}', 'ProductoController@changeRented');
+        Route::put('changeRented/{id}/{texto}/{userId}', 'ProductoController@changeRented');
         Route::get('/{categoria?}', 'ProductoController@getIndex');
     });
 });

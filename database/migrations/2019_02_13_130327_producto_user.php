@@ -17,7 +17,7 @@ class ProductoUser extends Migration
             $table->increments('id');
         $table->decimal('producto_id',8,2)->unsigned();
         $table->decimal('user_id',8,2)->unsigned();
-        $table->boolean('pendiente')->default(false);
+        $table->string('pendiente');
         $table->timestamps();
     });
     }

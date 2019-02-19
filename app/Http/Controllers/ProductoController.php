@@ -33,7 +33,7 @@ public function getCategorias()
 public function getShow($id)
 {
     $arrayProductos = Producto::findOrFail($id);
-    $arrayIntermedia = DB::table('productouser')->get();
+    $arrayIntermedia = Productouser::all();
     $userId = Auth::id();
     return view('productos.show', array( 'arrayProductos' => $arrayProductos,'arrayIntermedia' => $arrayIntermedia,'userId'=>$userId));
 }
@@ -71,13 +71,38 @@ public function putEdit(Request $request, $id)
     $p->save();
     return redirect('/productos/show/' . $p->id);
 }
-public function changeRented($id)
+public function changeRented($id,$texto,$userId)
 {
+    $arrayIntermedia = DB::table('productouser')->get();
+    $compId = Productouser::where('producto_id', $id)->first();
+    $compUser = Productouser::where('user_id', $userId)->first();
+    if($compId==null && $compUser==null){
+        $flight = Producto::all();
 
-    $p = Producto::findOrFail($id);
-    $p->pendiente = !$p->pendiente;
-    $p->save();
+    $flight->producto_id = $id->producto_id;
+    $flight->pendiente = $texto->pendiente;
+    $flight->user_id = $userId->user_id;
+
+    $flight->save(); 
     return back();
+    }else{
+  
+        if($texto=="Devolver"){
+            App\Productouser::where('producto_id', $id)
+              ->where('user_id', $userId)
+              ->update(['pendiente' => "Adquirir"]);
+              return back();
+        }else if($texto=="Adquirir"){
+           
+            App\Productouser::where('producto_id', $id)
+              ->where('user_id', $userId)
+              ->update(['pendiente' => "Adquirir"]);
+              return back();
+        }
+    }
+  
+    
+    
 }
 
 

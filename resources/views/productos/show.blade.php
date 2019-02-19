@@ -12,23 +12,26 @@
 
     <p>  {{$arrayProductos->nombre}}</p>
         {{$arrayProductos->categoria}}</p>
-        {{$userId}}
-        <p><strong>Estado: </strong>
-            @if($arrayIntermedia->pendiente)
-                Producto no disponible
+     
+        <strong>Estado:</strong>
+        @foreach ($arrayIntermedia as $todo)
+        @if ($todo->user_id == $userId && $todo->producto_id == $arrayProductos->id && $todo->pendiente=="Devolver")
+             Producto no disponible
                 @php
                 $class = "btn btn-danger";
                 $texto = "Devolver";
                 @endphp
-            @else
+                @else
                 Producto disponible
                 @php
                     $class = "btn btn-success";
                     $texto = "Adquirir";
                 @endphp
-            @endif
+        @endif
+    @endforeach
+      
         </p>
-        <form action="{{ url('productos/changeRented/' . $arrayProductos->id) }}" method="POST">
+        <form action="{{ url('productos/changeRented/' . $arrayProductos->id .'/' .$texto  .'/'.$userId .'/')}}" method="POST">
             {{ method_field('PUT') }}
             @csrf
             <input type="submit"  class="{{$class}}" value="{{$texto}}" />
